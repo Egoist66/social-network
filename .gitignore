@@ -1,0 +1,32 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+.idea
+/.vs/samurai-way-main/v17/.wsuo
+/.vs/samurai-way-main/FileContentIndex/9acf2b6a-3ec4-43fc-8b0f-d4c1b5046129.vsidx
+/.vs/samurai-way-main/config/applicationhost.config
+/.vs/samurai-way-main/ColorByRegexConfig.txt
+/.vs/samurai-way-main/FileContentIndex/ec4efe9a-7a78-4313-89f7-6b5a80165673.vsidx
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json
