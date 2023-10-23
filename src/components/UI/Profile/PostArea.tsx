@@ -1,13 +1,8 @@
 import styled from "styled-components";
-import Button from "../../service-components/Button/Button";
+import Button from "../../../service-components/Button/Button";
 import {ChangeEvent, FC, useState} from "react";
-import {Store} from "../../BLL/store";
-import {ADD_POST} from "../../BLL/actions";
+import {PostAreaContainerProps} from "./PostAreaContainer";
 
-type PostAreaProps = {
-    _align?: 'left' | 'right'
-    bg_color?: string,
-}
 
 type StyledPostArea = {
     bg_color?: string
@@ -19,7 +14,7 @@ const StyledPostArea = styled.textarea<StyledPostArea>`
   min-height: 120px;
   resize: none;
   outline: none;
-  background-color: ${({bg_color}) => bg_color || '#eae7f7'};
+  background-color: #eae7f7;
   border: none;
   padding: 10px;
   font-size: 16px;
@@ -27,10 +22,9 @@ const StyledPostArea = styled.textarea<StyledPostArea>`
 `
 
 
-export const PostArea: FC<PostAreaProps> = ({_align = 'left', bg_color}) => {
+export const PostArea: FC<PostAreaContainerProps> = ({addPost}) => {
     const [value, setValue] = useState<string>('')
 
-    const dispatch = Store.dispatch.bind(Store)
 
     const createPost = () => {
 
@@ -38,7 +32,7 @@ export const PostArea: FC<PostAreaProps> = ({_align = 'left', bg_color}) => {
             return
         }
 
-        dispatch(ADD_POST(value))
+        addPost(value)
         setValue('')
     }
     const handleValue = (e:ChangeEvent<HTMLTextAreaElement>) => {
@@ -47,9 +41,13 @@ export const PostArea: FC<PostAreaProps> = ({_align = 'left', bg_color}) => {
 
     return (
         <>
-            <StyledPostArea data-value={value} onChange={handleValue} value={value} bg_color={bg_color}/>
+            <StyledPostArea
+                data-value={value}
+                onChange={handleValue}
+                value={value}
+            />
             <div style={{
-                textAlign: _align,
+                textAlign: 'left',
                 display: 'flex',
                 gap: 20,
                 paddingTop: 20,
@@ -59,6 +57,7 @@ export const PostArea: FC<PostAreaProps> = ({_align = 'left', bg_color}) => {
 
                 <Button disabled={value.length <= 0} onClickHandler={createPost} width="230px" text="Create post"/>
                 <Button text="Remove all posts"/>
+
 
             </div>
 

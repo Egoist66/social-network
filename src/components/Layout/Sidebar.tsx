@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, {FC} from 'react'
-import {Navbar} from "../UI/Navbar";
+import {Navbar} from "./Navbar";
 
 const StyledSidebar = styled.aside`
 

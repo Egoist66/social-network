@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {FC} from "react";
-import {View} from "../../service-components/View/View";
+import {View} from "../../../service-components/View/View";
 
 const StyledProfileBG = styled.img`
   width: 100%;

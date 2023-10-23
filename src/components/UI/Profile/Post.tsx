@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Text from "../../service-components/Text/Text";
+import Text from "../../../service-components/Text/Text";
 import {FC, ReactNode} from "react";
 
 const StyledPost = styled.div`

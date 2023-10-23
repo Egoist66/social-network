@@ -1,15 +1,16 @@
 import {FC} from "react";
 import {DialogsMessages} from "./DialogsMessages";
-import {DialogsProps} from "./Dialogs";
 
 
-
-export const Messages: FC<DialogsProps> = ({messagesData}) => {
+type MessagesPropsType = {
+    messages?: MessagesItems[]
+}
+export const Messages: FC<MessagesPropsType> = ({messages}) => {
 
     return (
         <>
 
-            {messagesData ? messagesData?.map(m => (
+            {messages ? messages?.map(m => (
                 <DialogsMessages id={m.id} key={m.id} message={m.message}/>
             )): 'no data'}
 

@@ -1,4 +1,4 @@
-import Wrapper from "../../service-components/Wrapper/SectionWrapper";
+import Wrapper from "../../../service-components/Wrapper/SectionWrapper";
 import {Avatar} from "./Avatar";
 import {AboutUser} from "./AboutUser";
 import {FC} from "react";

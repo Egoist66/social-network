@@ -1,5 +1,5 @@
 import {FC} from "react";
-import Text from "../../service-components/Text/Text";
+import Text from "../../../service-components/Text/Text";
 import styled from "styled-components";
 
 

@@ -1,7 +1,7 @@
 import {FC} from "react";
 import styled from "styled-components";
 import {useLocation, useParams} from "react-router-dom";
-import Text from "../../service-components/Text/Text";
+import Text from "../../../service-components/Text/Text";
 
 const StyledCurrentDialog = styled.div`
 

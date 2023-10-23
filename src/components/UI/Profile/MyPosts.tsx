@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import Text from "../../service-components/Text/Text";
+import Text from "../../../service-components/Text/Text";
 import {Post} from "./Post";
-import {PostArea} from "./PostArea";
 import {FC} from "react";
-
-import {ProfileProps} from "./Profile";
+import {Profile} from "./Profile";
+import {PostAreaContainer} from "./PostAreaContainer";
 
 const StyledPostOutArea = styled.div`
   height: 350px;
@@ -18,24 +17,24 @@ const StyledPostOutList = styled.ul`
 
 `
 
-export const MyPosts: FC<ProfileProps>= ({postData}) => {
+export const MyPosts: FC<Profile>= ({posts}) => {
 
 
-    const PostElements = postData?.map(d => (
+    const PostElements = posts ? posts?.map(d => (
         <Post
             message={() => <Text>{d.message}</Text>}
             id={d.id}
             key={d.id}
             likesCount={d.likesCount}
         />
-    ))
+    )): 'no posts'
 
     return (
 
         <div>
 
             <Text type={'h2'}>My Posts</Text>
-            <PostArea />
+            <PostAreaContainer />
 
             <StyledPostOutArea>
 

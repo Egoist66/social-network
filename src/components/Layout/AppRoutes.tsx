@@ -1,10 +1,12 @@
 import {Routes, Route} from 'react-router-dom'
 import {FC, Suspense} from "react";
 import Text from "../../service-components/Text/Text";
-import {routes} from "../../Routes/Routes";
+import {RoutesData} from "../../Routes/Routes";
 
 
 export const AppRoutes: FC = () => {
+
+    const {routes} = RoutesData()
 
     return (
         <Suspense fallback={<Text type={'h2'} centered={'true'}>Loading...</Text>}>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, {FC} from 'react'
-import {Logo} from "../UI/Logo";
+import {Logo} from "./Logo";
 import Text from "../../service-components/Text/Text";
 
 const StyledHeader = styled.header`

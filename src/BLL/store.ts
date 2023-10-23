@@ -17,7 +17,7 @@ export interface StoreType {
         _profilePage: profilePageProps
         _dialogsPage: dialogsPageProps
     }
-    _notify: () => void,
+    _notifySubscribers: () => void,
     subscribe: (observer: () => void) => void,
     getStateSlice: (slice: '_profilePage' | '_dialogsPage') => any,
     getState: () => StoreType['_state'],
@@ -68,7 +68,7 @@ export const Store: StoreType = {
 
     subscribe(observer: () => void) {
         // подписчик на обновление стора - принимает наблюдателя и следит и запускается
-        this._notify = observer
+        this._notifySubscribers = observer
 
 
     },
@@ -86,13 +86,12 @@ export const Store: StoreType = {
         }
     },
 
-    _notify() {
+    _notifySubscribers() {
         console.warn('No subscribers!')
     },
 
 
     dispatch(action) {
-
         this.getState()._dialogsPage = dialogsPageReducer(
             this.getState()._dialogsPage,
             action
@@ -102,11 +101,11 @@ export const Store: StoreType = {
             action
         )
 
-        this._notify()
+        this._notifySubscribers()
 
 
     }
 }
 
-setGlobalProperty(window, [Store], 'store')
+//setGlobalProperty(window, [Store], 'store')
 

@@ -1,6 +1,6 @@
-import Text from "../../service-components/Text/Text";
+import Text from "../../../service-components/Text/Text";
 import {FC} from "react";
-import {View} from "../../service-components/View/View";
+import {View} from "../../../service-components/View/View";
 
 export type AboutUserPropsType = {
     data: {
