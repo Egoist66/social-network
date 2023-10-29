@@ -3,25 +3,14 @@ export enum ActionNames {
     ADD_MESSAGE = 'ADD_MESSAGE'
 }
 
-export type AddPostAction = {
-    type: ActionNames.ADD_POST,
-    payload: {
-        text: string
-    }
-}
+type AddPostAction = ReturnType<typeof ADD_POST>
+type AddMessageAction = ReturnType< typeof ADD_MESSAGE>
 
-export type AddMessageAction = {
-    type: ActionNames.ADD_MESSAGE
-    payload: {
-        message: string
-    }
-}
+export const ADD_POST = (text: string) =>
+({type: ActionNames.ADD_POST, payload: {text}}) as const
 
-export const ADD_POST = (text: string): AddPostAction =>
-    ({type: ActionNames.ADD_POST, payload: {text}})
-
-export const ADD_MESSAGE = (message: string): AddMessageAction =>
-    ({type: ActionNames.ADD_MESSAGE, payload: {message}})
+export const ADD_MESSAGE = (message: string) =>
+    ({type: ActionNames.ADD_MESSAGE, payload: {message}}) as const
 
 
 export type Action = AddPostAction | AddMessageAction

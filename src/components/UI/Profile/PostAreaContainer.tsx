@@ -15,4 +15,7 @@ const mapStateToDispatch = (dispatch: Dispatch<Action>) : PostAreaContainerProps
 }
 
 
-export const PostAreaContainer = connect(null, mapStateToDispatch)(PostArea)
+export const PostAreaContainer = connect(
+    null,
+     mapStateToDispatch
+)(PostArea)

@@ -17,14 +17,14 @@ const profileReducer = (state = initialState, action: Action): profilePageProps 
     switch (action.type) {
         case ActionNames.ADD_POST:
             logActions(action, action.type, action.payload)
-            return update(
-                state,
-                {name: 'posts', callback: push({
-                        id: crypto.randomUUID(),
-                        message: action.payload.text,
-                        likesCount: 0
-                    })(state.posts)}
-            )
+            
+            return {
+                ...state,
+                posts: [
+                    ...state.posts,
+                    {id: crypto.randomUUID(), likesCount: 0, message: action.payload.text}
+                ]
+            }
 
 
         default:

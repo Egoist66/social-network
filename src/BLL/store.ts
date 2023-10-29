@@ -23,11 +23,10 @@ export interface StoreType {
     getState: () => StoreType['_state'],
     dispatch: (action: Action) => void
 
-
-
 }
 
-export const Store: StoreType = {
+
+const Store: StoreType = {
     _state: {
         _profilePage: {
             posts: [

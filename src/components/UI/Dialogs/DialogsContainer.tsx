@@ -16,14 +16,16 @@ type DialogsContainerDispatchProps = {
 
 }
 
-const mapStateToProps = (state: AppRootState) => {
+const mapStateToProps = ({dialogsPage}: AppRootState) => {
+    
     return {
-        messages: state.dialogsPage.messages,
-        dialogs: state.dialogsPage.dialogs
+        messages: dialogsPage.messages,
+        dialogs: dialogsPage.dialogs
     }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) : DialogsContainerDispatchProps => {
+
     return {
         createMessage: (message: string, callback: (value: string) => void) => {
             dispatch(ADD_MESSAGE(message))

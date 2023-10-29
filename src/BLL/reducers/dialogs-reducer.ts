@@ -27,18 +27,20 @@ const initialState: dialogsPageProps = {
 
 const dialogsPageReducer = (state = initialState, action: Action): dialogsPageProps => {
 
+    
     switch (action.type) {
         case ActionNames.ADD_MESSAGE:
 
             logActions(action, action.type, action.payload)
-
-            return update(state, {
-                name: 'messages',
-                callback: push({
+            
+            return {
+                ...state,
+                messages: [...state.messages, {
                     id: crypto.randomUUID(),
                     message: action.payload.message
-                })(state.messages)
-            })
+                }],
+           
+            }
 
 
         default:

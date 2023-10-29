@@ -34,6 +34,7 @@ export const MyPosts: FC<Profile>= ({posts}) => {
         <div>
 
             <Text type={'h2'}>My Posts</Text>
+            {/* @ts-ignore */}
             <PostAreaContainer />
 
             <StyledPostOutArea>

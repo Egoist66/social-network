@@ -6,9 +6,11 @@ import { store } from "./BLL/redux-store";
 import { Provider } from "react-redux";
 
 render(
+  //@ts-ignore
   <Provider store={store}>
     <Router>
-      <Global />
+      {/*@ts-ignore */}
+    <Global />
       <App />
     </Router>
   </Provider>,

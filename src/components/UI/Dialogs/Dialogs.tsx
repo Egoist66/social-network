@@ -8,6 +8,7 @@ import Wrapper from "../../../service-components/Wrapper/SectionWrapper";
 import {TextArea} from "../../../service-components/TextArea/TextArea";
 import Button from "../../../service-components/Button/Button";
 import {DialogsContainerProps} from "./DialogsContainer";
+import { DialogsForm } from "./DialogsForm";
 
 const StyledDialogs = styled.div({})
 
@@ -22,13 +23,7 @@ const UserMessages = styled.div`
     flex-grow: 1;
   }
 `
-export type DialogsProps = {
-    dialogs?: DialogsItems[]
-    messages?: MessagesItems[]
-    messageText: string
-    setMessage: (message: string) => void
-    createNewMessage: () => void
-}
+
 
 const Dialogs: FC<DialogsContainerProps> = ({dialogs, messages, createMessage}) => {
 
@@ -52,21 +47,14 @@ const Dialogs: FC<DialogsContainerProps> = ({dialogs, messages, createMessage}) 
                 </View>
 
 
-                <TextArea
-                    width={'50%'}
-                    value={message}
-                    dataValue={message}
-                    onChangeHandler={setMessage}
-                    placeHolder={'Enter a message'}
+                <DialogsForm
+                    createMessage={createMessage}
+                    message={message}
+                    setMessage={setMessage}
+                
                 />
 
-                <Button
-                    disabled={message.length <= 0}
-                    text={'Send message'}
-                    onClickHandler={() => createMessage ? createMessage(message, setMessage) : () => {}}
-                />
-
-
+                
             </UserMessages>
 
         </Wrapper>
