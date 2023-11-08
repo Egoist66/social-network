@@ -11,7 +11,7 @@ type ParamsType = {
     id: string
 }
 
-export const CurrentDialog: FC = () => {
+const CurrentDialog: FC = () => {
     const params = useParams<ParamsType>()
 
     return (
@@ -20,3 +20,5 @@ export const CurrentDialog: FC = () => {
         </StyledCurrentDialog>
     )
 }
+
+export  default CurrentDialog

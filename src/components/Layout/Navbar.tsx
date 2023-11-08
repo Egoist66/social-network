@@ -25,6 +25,7 @@ export const Navbar: FC = () => {
 
     const links = [
         {route: '/profile', name:'Profile'},
+        {route: '/users', name:'Users'},
         {route: '/messages', name:'Messages'},
         {route: '/news', name:'News'},
         {route: '/music', name:'Music'},

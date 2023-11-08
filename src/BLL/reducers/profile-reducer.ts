@@ -1,6 +1,6 @@
-import {ActionNames, Action} from "../actions";
+import {Action, ActionNames} from "../actions";
 import {profilePageProps} from "../store";
-import {logActions, push, update} from "../../utils/utils";
+import {logActions} from "../../utils/utils";
 
 
 const initialState: profilePageProps = {

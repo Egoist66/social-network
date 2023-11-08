@@ -1,8 +1,7 @@
-import {CurrentDialog} from "../components/UI/Dialogs/CurrentDialog";
+import CurrentDialog from "../components/UI/Dialogs/CurrentDialog";
 import Text from "../service-components/Text/Text";
 import {FC, lazy, ReactNode} from "react";
-import {Profile} from "../components/UI/Profile/Profile";
-import {DialogsContainerProps} from "../components/UI/Dialogs/DialogsContainer";
+import Users from "../components/UI/Users/Users";
 
 type RouteParts = {
     path: string,
@@ -16,6 +15,7 @@ export const RoutesData = () => {
 
     const routes: RouteParts[] = [
         {path: '/profile', component: <LazyProfile />},
+        {path: '/users', component: <Users />},
         {path: '/messages', component: <LazyDialogs />},
         {path: '/messages/:id', component: <CurrentDialog />},
         {path: '/news', component: <Text type={'h2'}>News</Text>},

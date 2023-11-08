@@ -9,7 +9,7 @@ export const ProfileInfo: FC = () => {
     return (
 
         <Wrapper gap={'30px'}>
-            <Avatar />
+            <Avatar width={200} src={"https://i.pinimg.com/originals/11/61/1b/11611b0d9bc7ef5123366050e1c40a94.png"} />
             <AboutUser data={{
                 name: 'Farid Makhmudov',
                 birth: '12/07/1996',

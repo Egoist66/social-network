@@ -1,4 +1,3 @@
-import {FC, useState} from "react";
 import Dialogs from "./Dialogs";
 import {AppRootState} from "../../../BLL/redux-store";
 import {Action, ADD_MESSAGE} from "../../../BLL/actions";

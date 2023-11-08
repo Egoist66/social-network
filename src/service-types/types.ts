@@ -4,18 +4,23 @@ export type StyledServiceWrapperType = {
     _block?: boolean,
     _justify?: 'space-between' | 'space-evenly' | 'space-around' | 'flex-start' |
     'center' | 'flex-end',
-    align_center? : string,
+    align_center? : 'center' | boolean,
     gap?: string
+    _margin?: string
+    _direction?: 'row' | 'column' | 'column-reverse'
 
 }
 
 export type WrapperChildren = {
     children: ReactNode,
+    _margin?: string
     _block?: boolean
     _justify?: 'space-between' | 'space-evenly' | 'space-around' | 'flex-start' |
         'center' | 'flex-end',
-    align_center?:string,
+    align_center?:'center' | boolean,
     gap?: string
+    _direction?: 'row' | 'column' | 'column-reverse'
+
 
 }
 

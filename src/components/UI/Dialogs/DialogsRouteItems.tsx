@@ -14,7 +14,6 @@ type DialogsRouteItemsProps = {
 export const DialogsRouteItems: FC<DialogsRouteItemsProps> = ({id, name}) => {
     return (
         <DialogsItems>
-            {/* @ts-ignore */}
             <NavLink to={`/messages/${id}`}>{name}</NavLink>
 
         </DialogsItems>
