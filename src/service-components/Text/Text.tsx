@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {TextPropsType} from "../../service-types/types";
+import { TextPropsType } from "../../service-types/types";
 
 
 const StyledParagraph = styled.p<TextPropsType>((props) => ({
@@ -38,11 +38,13 @@ const StyledSpan = styled.span<TextPropsType>((props) => ({
   fontWeight: props.font_weight
 }));
 
-function Text({ _color, font_size, type = 'p', centered, children, mw, _margin, font_weight}: TextPropsType) {
+function Text({ _color, onClick, className, font_size, type = 'p', centered, children, mw, _margin, font_weight }: TextPropsType) {
   switch (type) {
     case "p":
       return (
         <StyledParagraph
+          onClick={onClick}
+          className={className}
           font_weight={font_weight}
           centered={centered}
           font_size={font_size}
@@ -56,6 +58,8 @@ function Text({ _color, font_size, type = 'p', centered, children, mw, _margin, 
     case "h2":
       return (
         <StyledTitleH2
+          onClick={onClick}
+          className={className}
           font_weight={font_weight}
           centered={centered}
           font_size={font_size}
@@ -69,6 +73,8 @@ function Text({ _color, font_size, type = 'p', centered, children, mw, _margin, 
     case "h1":
       return (
         <StyledTitleH1
+          onClick={onClick}
+          className={className}
           font_weight={font_weight}
           centered={centered}
           font_size={font_size}
@@ -82,6 +88,8 @@ function Text({ _color, font_size, type = 'p', centered, children, mw, _margin, 
     case "span":
       return (
         <StyledSpan
+          onClick={onClick}
+          className={className}
           font_weight={font_weight}
           centered={centered}
           font_size={font_size}

@@ -1,16 +1,24 @@
 import {Action, ActionNames} from "../actions";
-import {logActions} from "../../utils/utils";
 import {UsersResponseItems} from "../api/useUsersAPI";
 
 export type UsersTypeState<T> = {
 
-    users: Array<T>
+    userItems: Array<T>
+    totalCount: number
+    currentPage: number
+    error: string | null
+    usersCount: number
 }
 
 
 const initialState: UsersTypeState<UsersResponseItems> = {
 
-    users: []
+    userItems: [],
+    totalCount: 0,
+    usersCount: 0,
+    currentPage: 1,
+    error: ''
+
 }
 
 
@@ -18,21 +26,22 @@ export const usersReducer = (state = initialState, action: Action): UsersTypeSta
     switch (action.type) {
         case ActionNames.FOLLOW_USER:
 
-            logActions(action, ActionNames.FOLLOW_USER, action.payload)
 
             return {
                 ...state,
-                users: state.users.map(u => u.id === action.payload.id ?
+                userItems: state.userItems.map(u => u.id === action.payload.id ?
                     {...u, followed: !u.followed} : u
                 )
             }
         case ActionNames.FETCH_USERS:
 
-            logActions(action, ActionNames.FETCH_USERS, action.payload)
-
             return {
                 ...state,
-                users: [...action.payload]
+                userItems: [...action.payload.userItems],
+                totalCount: action.payload.totalCount,
+                usersCount: action.payload.usersCount,
+                currentPage: action.payload.currentPage,
+                error: action.payload.error
             }
 
 

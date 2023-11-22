@@ -1,6 +1,6 @@
 /* Action types */
 
-import {UsersResponseItems} from "./api/useUsersAPI";
+import { UsersResponseItems } from "./api/useUsersAPI";
 
 export enum ActionNames {
     ADD_POST = 'ADD_POST',
@@ -26,18 +26,18 @@ export type Action =
 
 /* Action creators functions */
 export const ADD_POST = (text: string) =>
-    ({type: ActionNames.ADD_POST, payload: {text}}) as const
+    ({ type: ActionNames.ADD_POST, payload: { text } }) as const
 
 export const ADD_MESSAGE = (message: string) =>
-    ({type: ActionNames.ADD_MESSAGE, payload: {message}}) as const
+    ({ type: ActionNames.ADD_MESSAGE, payload: { message } }) as const
 
 export const LOAD_USERS = (id: number) => (
-    {type: ActionNames.LOAD_USERS, payload: {id}} as const
+    { type: ActionNames.LOAD_USERS, payload: { id } } as const
 )
-export const FOLLOW_USER = (id: number ) => (
-    {type: ActionNames.FOLLOW_USER, payload: {id}} as const
+export const FOLLOW_USER = (id: number) => (
+    { type: ActionNames.FOLLOW_USER, payload: { id } } as const
 )
-export const FETCH_USERS = (users: UsersResponseItems[]) => (
-    {type: ActionNames.FETCH_USERS, payload: users} as const
+export const FETCH_USERS = (userItems: UsersResponseItems[], totalCount: number, usersCount: number, currentPage: number, error: string | null) => (
+    { type: ActionNames.FETCH_USERS, payload: { userItems, totalCount, usersCount, currentPage, error } } as const
 )
 

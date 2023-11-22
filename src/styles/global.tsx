@@ -34,6 +34,9 @@ export const Global = createGlobalStyle`
  
     
   
- 
+ .selected {
+  color: #8852F7;
+  font-weight: 600;
+ }
 
 `

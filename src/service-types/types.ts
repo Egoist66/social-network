@@ -29,7 +29,9 @@ export type TextPropsType = {
     font_size?: string;
     type?: 'p' | 'h2' | 'h1' | 'span',
     children?: ReactNode;
+    className?: string;
     centered?: string;
+    onClick?: () => void;
     mw?: string;
     _margin?: string,
     font_weight?: number
