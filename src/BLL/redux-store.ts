@@ -13,7 +13,8 @@ export const useAppSelector: TypedUseSelectorHook<AppRootState> = useSelector;
 
 export const store = createStore(
     rootReducer,
-    composeWithDevTools()
+    composeWithDevTools(),
+
 )
 
 setGlobalProperty(window, [store], 'store')

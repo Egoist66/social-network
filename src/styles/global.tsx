@@ -8,6 +8,11 @@ export const Global = createGlobalStyle`
     min-height: 1500px;
 
   }
+  
+  #users {
+    height: 620px;
+    overflow: auto;
+  }
 
   ul {
     padding: 0;

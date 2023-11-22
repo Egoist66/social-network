@@ -1,31 +1,25 @@
-import {Action, ActionNames, LOAD_USERS} from "../actions";
+import {Action, ActionNames} from "../actions";
 import {logActions} from "../../utils/utils";
+import {UsersResponseItems} from "../api/useUsersAPI";
 
-export type usersTypeState<T> = {
-    users: Array<T> | []
-}
+export type UsersTypeState<T> = {
 
-export type UsersData = {
-    id: number,
-    fullName: string,
-    status: string,
-    followed: boolean,
-    location: {
-        city: string,
-        country: string
-    }
+    users: Array<T>
 }
 
 
-const initialState: usersTypeState<UsersData> = {
+const initialState: UsersTypeState<UsersResponseItems> = {
+
     users: []
 }
 
 
-export const usersReducer = (state = initialState, action: Action): usersTypeState<UsersData> => {
+export const usersReducer = (state = initialState, action: Action): UsersTypeState<UsersResponseItems> => {
     switch (action.type) {
         case ActionNames.FOLLOW_USER:
+
             logActions(action, ActionNames.FOLLOW_USER, action.payload)
+
             return {
                 ...state,
                 users: state.users.map(u => u.id === action.payload.id ?
@@ -33,12 +27,12 @@ export const usersReducer = (state = initialState, action: Action): usersTypeSta
                 )
             }
         case ActionNames.FETCH_USERS:
+
             logActions(action, ActionNames.FETCH_USERS, action.payload)
+
             return {
                 ...state,
-                users: [
-                    ...action.payload
-                ]
+                users: [...action.payload]
             }
 
 

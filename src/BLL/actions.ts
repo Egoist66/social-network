@@ -1,7 +1,6 @@
 /* Action types */
 
-import {UsersData} from "./reducers/users-reducer";
-import {bindActionCreators} from "redux";
+import {UsersResponseItems} from "./api/useUsersAPI";
 
 export enum ActionNames {
     ADD_POST = 'ADD_POST',
@@ -38,7 +37,7 @@ export const LOAD_USERS = (id: number) => (
 export const FOLLOW_USER = (id: number ) => (
     {type: ActionNames.FOLLOW_USER, payload: {id}} as const
 )
-export const FETCH_USERS = (users: UsersData[]) => (
+export const FETCH_USERS = (users: UsersResponseItems[]) => (
     {type: ActionNames.FETCH_USERS, payload: users} as const
 )
 
