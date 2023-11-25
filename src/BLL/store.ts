@@ -72,6 +72,10 @@ const Store: StoreType = {
 
     },
 
+    _notifySubscribers() {
+        console.warn('No subscribers!')
+    },
+
     getStateSlice(slice) {
         // возвращает кусочек стора
         if (slice === '_profilePage') {
@@ -85,9 +89,7 @@ const Store: StoreType = {
         }
     },
 
-    _notifySubscribers() {
-        console.warn('No subscribers!')
-    },
+   
 
 
     dispatch(action) {

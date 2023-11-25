@@ -68,6 +68,7 @@ export const usersAPI = {
 
         return (async () => {
             try {
+
                 const { data } = await instanse.get<UsersResponseType>(`/users?count=${usersCount}&page=${currentPage}`)
 
                 dispatch(FETCH_USERS(

@@ -1,4 +1,4 @@
-import {createGlobalStyle} from 'styled-components'
+import { createGlobalStyle } from 'styled-components'
 
 export const Global = createGlobalStyle`
 
@@ -32,10 +32,18 @@ export const Global = createGlobalStyle`
    cursor: not-allowed;
  }
  
-    
+  .page {
+    background-color: #8852F7;
+    color: white;
+    display: inline-block;
+    cursor: pointer;
+    padding: 5px;
+    height: max-content;
+    width: max-content;
+  }
   
- .selected {
-  color: #8852F7;
+ .selected.page {
+  background-color: #4e2a96;
   font-weight: 600;
  }
 
