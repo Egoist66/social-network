@@ -1,4 +1,4 @@
-import { Action, FETCH_USERS, FOLLOW_USER } from "../actions";
+import {Action, FETCH_USERS, FOLLOW_USER, INIT_FETCH_USERS} from "../actions";
 import { Dispatch } from "redux";
 import axios from "axios";
 import { useActions } from "../../hooks/useActions";
@@ -22,7 +22,7 @@ export type UsersResponseType = {
 }
 
 
-export const instanse = axios.create({
+export const APIinstance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0',
     withCredentials: true,
     responseType: "json",
@@ -32,7 +32,7 @@ export const instanse = axios.create({
 })
 
 
-export const useUsersApi = () => {
+export const useUsersAPI = () => {
 
     const { FETCH_USERS, FOLLOW_USER } = useActions()
 
@@ -41,7 +41,7 @@ export const useUsersApi = () => {
 
         fetchUsers() {
             return (async () => {
-                const { data } = await instanse.get<UsersResponseType>('/users')
+                const { data } = await APIinstance.get<UsersResponseType>('/users')
 
                 FETCH_USERS(
                     data.items,
@@ -68,8 +68,9 @@ export const usersAPI = {
 
         return (async () => {
             try {
+                dispatch(INIT_FETCH_USERS(true))
 
-                const { data } = await instanse.get<UsersResponseType>(`/users?count=${usersCount}&page=${currentPage}`)
+                const { data } = await APIinstance.get<UsersResponseType>(`/users?count=${usersCount}&page=${currentPage}`)
 
                 dispatch(FETCH_USERS(
                     data.items || [],
@@ -81,6 +82,10 @@ export const usersAPI = {
             }
             catch (e) {
                 console.log(e)
+            }
+            finally {
+                dispatch(INIT_FETCH_USERS(false))
+
             }
 
         })()

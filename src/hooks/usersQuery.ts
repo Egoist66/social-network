@@ -1,4 +1,4 @@
- import {instanse, UsersResponseType} from "../BLL/api/useUsersAPI";
+import {UsersResponseType} from "../BLL/api/usersAPI";
 // import {useEffect} from "react";
 // import {useActions} from "./useActions";
 //

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Text from "../../../service-components/Text/Text";
 import {Post} from "./Post";
 import {FC} from "react";
-import {Profile} from "./Profile";
+import {ProfilePostProps} from "./Profile";
 import {PostAreaContainer} from "./PostAreaContainer";
 
 const StyledPostOutArea = styled.div`
@@ -17,7 +17,7 @@ const StyledPostOutList = styled.ul`
 
 `
 
-export const MyPosts: FC<Profile>= ({posts}) => {
+export const MyPosts: FC<ProfilePostProps>= ({posts}) => {
 
 
     const PostElements = posts ? posts?.map(d => (

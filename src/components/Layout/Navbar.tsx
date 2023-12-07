@@ -24,7 +24,7 @@ const StyledNavBarListItem = styled.li`
 export const Navbar: FC = () => {
 
     const links = [
-        {route: '/profile', name:'Profile'},
+        {route: '/profile/1', name:'Profile'},
         {route: '/users', name:'Users'},
         {route: '/messages', name:'Messages'},
         {route: '/news', name:'News'},

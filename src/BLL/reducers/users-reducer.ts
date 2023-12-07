@@ -1,5 +1,5 @@
 import {Action, ActionNames} from "../actions";
-import {UsersResponseItems} from "../api/useUsersAPI";
+import {UsersResponseItems} from "../api/usersAPI";
 
 export type UsersTypeState<T> = {
 
@@ -8,6 +8,7 @@ export type UsersTypeState<T> = {
     currentPage: number
     error: string | null
     usersCount: number
+    isFetching: boolean
 }
 
 
@@ -17,6 +18,7 @@ const initialState: UsersTypeState<UsersResponseItems> = {
     totalCount: 0,
     usersCount: 0,
     currentPage: 1,
+    isFetching: false,
     error: ''
 
 }
@@ -26,13 +28,19 @@ export const usersReducer = (state = initialState, action: Action): UsersTypeSta
     switch (action.type) {
         case ActionNames.FOLLOW_USER:
 
-
             return {
                 ...state,
                 userItems: state.userItems.map(u => u.id === action.payload.id ?
                     {...u, followed: !u.followed} : u
                 )
             }
+
+        case ActionNames.INIT_FETCH_USERS: {
+            return {
+                ...state,
+                isFetching: action.payload.isFetching
+            }
+        }
         case ActionNames.FETCH_USERS:
 
             return {

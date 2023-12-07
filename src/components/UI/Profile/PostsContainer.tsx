@@ -2,9 +2,9 @@ import {AppRootState} from "../../../BLL/redux-store";
 import {connect} from "react-redux";
 import {MyPosts} from "./MyPosts";
 
-const mapStateToProps = (state: AppRootState) => {
+const mapStateToProps = ({profilePage:{userProfile}}: AppRootState) => {
     return {
-        posts: state.profilePage.posts
+        posts: userProfile.posts
     }
 }
 

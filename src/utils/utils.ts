@@ -80,3 +80,7 @@ export const update = (prevState: any, propForUpdate: { name: string, callback: 
         [propForUpdate.name]: propForUpdate.callback()
     }
 }
+
+export const uriId = () => {
+    return Number(window.location.pathname.split("/")[2])
+}

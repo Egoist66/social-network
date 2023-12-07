@@ -2,6 +2,7 @@ import Wrapper from "../../../service-components/Wrapper/SectionWrapper";
 import {Avatar} from "./Avatar";
 import {AboutUser} from "./AboutUser";
 import {FC} from "react";
+import Text from "../../../service-components/Text/Text";
 
 
 export const ProfileInfo: FC = () => {

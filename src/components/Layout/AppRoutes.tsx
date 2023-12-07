@@ -2,6 +2,7 @@ import {Routes, Route} from 'react-router-dom'
 import {FC, Suspense} from "react";
 import Text from "../../service-components/Text/Text";
 import {RoutesData} from "../../Routes/Routes";
+import {Spinner} from "../../service-components/Preloader/Preloader";
 
 
 export const AppRoutes: FC = () => {
@@ -9,7 +10,7 @@ export const AppRoutes: FC = () => {
     const {routes} = RoutesData()
 
     return (
-        <Suspense fallback={<Text type={'h2'} centered={'true'}>Loading...</Text>}>
+        <Suspense fallback={<Spinner />}>
             <Routes>
                 <Route index element={<Text type={'h1'}>Welcome to Go-Sound!</Text>}/>
                 {routes.map(route => (

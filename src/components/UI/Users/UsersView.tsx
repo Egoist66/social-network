@@ -1,23 +1,26 @@
-import { FC, memo } from "react";
-import { UsersResponseItems } from "../../../BLL/api/useUsersAPI";
+import {FC, memo, ReactNode} from "react";
+import { UsersResponseItems } from "../../../BLL/api/usersAPI";
 import Button from "../../../service-components/Button/Button";
 import { View } from "../../../service-components/View/View";
 import Wrapper from "../../../service-components/Wrapper/SectionWrapper";
 import { Avatar } from "../Profile/Avatar";
 import Text from "../../../service-components/Text/Text";
+import {NavLink} from "react-router-dom";
 
 type UsersViewProps = {
      currentPage: number;
-     getPageCount: (usersCount: number) => () => number[];
+     getPageCount: (usersCount?: number) => () => number[];
      error: string | null;
      userItems:  UsersResponseItems[] | undefined;
      followUsers: (id: number) => void
+     renderSpinner: (isFetching?: boolean) => ReactNode
+     isFetching: boolean
      nextPage: (page: number) => () => void
 }
 
-export const UsersView: FC<UsersViewProps> = memo(({currentPage, nextPage, getPageCount, error, userItems, followUsers}) => {
+export const UsersView: FC<UsersViewProps> = memo(({currentPage, renderSpinner, isFetching, nextPage, getPageCount, error, userItems, followUsers}) => {
 
-     const pages = getPageCount(5)
+     const pages = getPageCount(10)
 
      return (
           <>
@@ -44,12 +47,14 @@ export const UsersView: FC<UsersViewProps> = memo(({currentPage, nextPage, getPa
                </Wrapper>
 
 
-               {error ? error : 
+               {error ? error :
                     <View id={'users'}>
-                         {userItems?.map(u => (
+                         {isFetching ? renderSpinner() : userItems?.map(u => (
                               <Wrapper _margin={'0px 0px 30px 0px'} gap={'30px'} key={u.id}>
                                    <Wrapper gap={'10px'} _direction={'column'}>
-                                        <Avatar width={100} />
+                                       <NavLink to={`/profile/${u.id}`}>
+                                           <Avatar width={100} />
+                                       </NavLink>
                                         <Button
                                              text={u.followed ? 'Follow' : 'Unfollow'}
                                              onClickHandler={() => followUsers(u.id)}

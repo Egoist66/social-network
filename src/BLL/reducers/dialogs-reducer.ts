@@ -1,7 +1,10 @@
-import {ActionNames, Action} from "../actions";
-import {dialogsPageProps} from "../store";
-import {logActions, push, update} from "../../utils/utils";
+import {Action, ActionNames} from "../actions";
+import {logActions} from "../../utils/utils";
 
+export type dialogsPageProps = {
+    dialogs: DialogsItems[],
+    messages: MessagesItems[]
+}
 
 const initialState: dialogsPageProps = {
     dialogs: [

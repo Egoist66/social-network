@@ -1,45 +1,34 @@
-import { AppRootState } from "../../../BLL/redux-store";
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
-import { Action } from "../../../BLL/actions";
-import { UsersResponseItems, usersAPI } from "../../../BLL/api/useUsersAPI";
-import { PureComponent, ReactNode } from "react";
-import { UsersView } from "./UsersView";
+import {AppRootState} from "../../../BLL/redux-store";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
+import {Action} from "../../../BLL/actions";
+import {usersAPI, UsersResponseItems} from "../../../BLL/api/usersAPI";
+import {PureComponent, ReactNode} from "react";
+import {UsersView} from "./UsersView";
+import {Spinner} from "../../../service-components/Preloader/Preloader";
 
-interface mapDispatchToPropsType  {
+interface mapDispatchToPropsType {
     fetchUsers: (pageSize: number, currentPage: number) => Promise<void>
     followUsers: (id: number) => void
 }
 
-const mapStateToProps = ({ usersPage }: AppRootState) => {
+const mapStateToProps = ({usersPage}: AppRootState) => ({...usersPage})
 
-    return {
-       ...usersPage
-    }
-}
-
-
-const mapDispatchToProps = (dispatch: Dispatch<Action>): mapDispatchToPropsType => {
-    return {
-        fetchUsers: (usersCount: number, currentPage: number) => usersAPI.fetchUsers(
-            dispatch,
-            usersCount,
-            currentPage
-        ),
-        followUsers: (id: number) => usersAPI.followUsers(dispatch, id)
-    }
-}
-
-
-
+const mapDispatchToProps = (dispatch: Dispatch<Action>): mapDispatchToPropsType => ({
+    fetchUsers: (usersCount: number, currentPage: number) => usersAPI.fetchUsers(
+        dispatch, usersCount, currentPage
+    ),
+    followUsers: (id: number) => usersAPI.followUsers(dispatch, id)
+})
 
 export interface UsersProps {
-    userItems?: UsersResponseItems[],
+    userItems: UsersResponseItems[],
     totalCount: number,
     usersCount: number,
     currentPage: number,
     error: string | null,
     fetchUsers: (usersCount: number, currentPage: number) => Promise<void>,
+    isFetching: boolean,
     followUsers: (id: number) => void
 
 }
@@ -50,7 +39,7 @@ interface UsersState {
 
 
 class Users extends PureComponent<UsersProps, UsersState> {
-    
+
 
     state: Readonly<UsersState> = {
         currentPage: 1
@@ -65,15 +54,15 @@ class Users extends PureComponent<UsersProps, UsersState> {
         }
     }
 
-    getPageCount = (maxPage: number) => {
+    getPageCount = (maxPage?: number) => {
 
         return () => {
             let pagesCount = this.props.totalCount / this.props.usersCount
             let pages = []
-            for(let i = 1; i <= Math.ceil(pagesCount); i++){
+            for (let i = 1; i <= Math.ceil(pagesCount); i++) {
                 pages.push(i)
 
-                if(i === maxPage){
+                if (i === maxPage) {
                     break
                 }
             }
@@ -88,37 +77,29 @@ class Users extends PureComponent<UsersProps, UsersState> {
 
     }
 
-    componentDidUpdate(prevProps: Readonly<UsersProps>, prevState: Readonly<UsersState>, snapshot?: any): void {
-        if(prevState.currentPage !== this.state.currentPage){
+    componentDidUpdate(prevProps: Readonly<UsersProps>, prevState: Readonly<UsersState>): void {
+        if (prevState.currentPage !== this.state.currentPage) {
             this.props.fetchUsers(this.props.usersCount, this.state.currentPage)
         }
     }
- 
-
 
 
     render(): ReactNode {
 
-        const { userItems, currentPage, followUsers, error} = this.props
-
         return (
 
-            <UsersView 
-                userItems={userItems}
-                currentPage={currentPage}
-                followUsers={followUsers}
-                error={error}
-                nextPage={this.nextPage}
+            <UsersView
                 getPageCount={this.getPageCount}
-           
+                nextPage={this.nextPage}
+                renderSpinner={() => <Spinner/>}
+                {...this.props}
+
             />
         )
 
 
     }
 }
-
-
 
 
 const _Users = connect(mapStateToProps, mapDispatchToProps)(Users)
