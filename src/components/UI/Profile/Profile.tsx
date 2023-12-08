@@ -29,6 +29,7 @@ const mapStateToProps = ({profilePage: {userProfile}}: AppRootState) => ({...use
 const mapDispatchToProps = (dispatch: Dispatch<Action>): ProfileDispatchProps => ({
     fetchProfileData: (id: number) => ProfileAPI.fetchProfileData(dispatch, id)
 })
+
 class Profile extends PureComponent<ProfileProps, any> {
 
 
@@ -43,7 +44,7 @@ class Profile extends PureComponent<ProfileProps, any> {
                 {fullName}
                 <ProfileBG url={'https://shorturl.at/jnvYZ'}/>
                 <ProfileInfo/>
-                <Posts />
+                <Posts/>
 
                 {uriId()}
 

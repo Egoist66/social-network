@@ -1,5 +1,5 @@
-import {Action, FETCH_PROFILE_DATA, FETCH_USERS, INIT_FETCH_USERS} from "../actions";
-import {APIinstance, UsersResponseType} from "./usersAPI";
+import {Action, FETCH_PROFILE_DATA} from "../actions";
+import {APIinstance} from "./usersAPI";
 import {Dispatch} from "redux";
 
 export type ProfileResponse =  {

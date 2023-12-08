@@ -1,7 +1,7 @@
 import {Action, FETCH_USERS, FOLLOW_USER, INIT_FETCH_USERS} from "../actions";
-import { Dispatch } from "redux";
+import {Dispatch} from "redux";
 import axios from "axios";
-import { useActions } from "../../hooks/useActions";
+import {useActions} from "../../hooks/useActions";
 
 
 export type UsersResponseItems = {
@@ -34,14 +34,14 @@ export const APIinstance = axios.create({
 
 export const useUsersAPI = () => {
 
-    const { FETCH_USERS, FOLLOW_USER } = useActions()
+    const {FETCH_USERS, FOLLOW_USER} = useActions()
 
 
     return {
 
         fetchUsers() {
             return (async () => {
-                const { data } = await APIinstance.get<UsersResponseType>('/users')
+                const {data} = await APIinstance.get<UsersResponseType>('/users')
 
                 FETCH_USERS(
                     data.items,
@@ -70,7 +70,7 @@ export const usersAPI = {
             try {
                 dispatch(INIT_FETCH_USERS(true))
 
-                const { data } = await APIinstance.get<UsersResponseType>(`/users?count=${usersCount}&page=${currentPage}`)
+                const {data} = await APIinstance.get<UsersResponseType>(`/users?count=${usersCount}&page=${currentPage}`)
 
                 dispatch(FETCH_USERS(
                     data.items || [],
@@ -79,11 +79,9 @@ export const usersAPI = {
                     currentPage,
                     data.error
                 ))
-            }
-            catch (e) {
+            } catch (e) {
                 console.log(e)
-            }
-            finally {
+            } finally {
                 dispatch(INIT_FETCH_USERS(false))
 
             }
@@ -95,8 +93,7 @@ export const usersAPI = {
         return (async () => {
             try {
                 dispatch(FOLLOW_USER(id))
-            }
-            catch (e) {
+            } catch (e) {
                 console.log(e)
             }
         })()

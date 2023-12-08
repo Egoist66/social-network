@@ -49,7 +49,7 @@ const profileReducer = (state = initialState, action: Action): profilePageProps 
     switch (action.type) {
 
         case ActionNames.FETCH_PROFILE_DATA: {
-            return  {
+            return {
                 ...state,
                 userProfile: {
                     posts: [...state.userProfile.posts],
@@ -61,7 +61,7 @@ const profileReducer = (state = initialState, action: Action): profilePageProps 
 
         case ActionNames.ADD_POST:
             logActions(action, action.type, action.payload)
-            
+
             return {
                 ...state,
                 userProfile: {
