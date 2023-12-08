@@ -1,3 +1,5 @@
+export  {}
+
 import {Action} from "./actions";
 // import profileReducer, {profilePageProps} from "./reducers/profile-reducer";
 // import dialogsPageReducer, {dialogsPageProps} from "./reducers/dialogs-reducer";
