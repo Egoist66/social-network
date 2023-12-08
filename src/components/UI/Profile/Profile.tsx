@@ -38,15 +38,11 @@ class Profile extends PureComponent<ProfileProps, any> {
     }
 
     render() {
-        const {fullName} = this.props
         return (
             <>
-                {fullName}
                 <ProfileBG url={'https://shorturl.at/jnvYZ'}/>
                 <ProfileInfo/>
                 <Posts/>
-
-                {uriId()}
 
             </>
         )
