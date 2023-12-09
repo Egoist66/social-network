@@ -8,13 +8,16 @@ type RouteParts = {
 }
 
 const LazyDialogs: FC = lazy(() => import('../components/UI/Dialogs/DialogsContainer'));
-const LazyProfile = lazy(() => import('../components/UI/Profile/Profile'));
+export const LazyProfile = lazy(() => import('../components/UI/Profile/Profile'));
 const LazyUsers = lazy(() => import('../components/UI/Users/UsersContainer'));
 
 export const RoutesData = () => {
 
     const routes: RouteParts[] = [
-        {path: '/profile/:id', component: <LazyProfile/>},
+        // @ts-ignore
+
+        {path: '/profile/:id', component: <LazyProfile  />},
+        {path: '/profile', component: <LazyProfile  />},
         {path: '/users', component: <LazyUsers/>},
         {path: '/messages', component: <LazyDialogs/>},
         {path: '/messages/:id', component: <CurrentDialog/>},

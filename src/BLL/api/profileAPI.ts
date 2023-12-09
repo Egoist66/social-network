@@ -1,8 +1,9 @@
 import {Action, FETCH_PROFILE_DATA} from "../actions";
 import {APIinstance} from "./usersAPI";
 import {Dispatch} from "redux";
+import {preloaded} from "../preloaded";
 
-export type ProfileResponse =  {
+export type ProfileResponse = {
     aboutMe: string
     contacts: Contacts
     lookingForAJob: boolean
@@ -30,38 +31,21 @@ export type Photos = {
 
 
 export const ProfileAPI = {
-    fetchProfileData(dispatch: Dispatch<Action>, id: number){
+    fetchProfileData(dispatch: Dispatch<Action>, id: number) {
         return (async () => {
             try {
-                if(id === 1){
-                    dispatch(FETCH_PROFILE_DATA({
-                        aboutMe: 'Hi',
-                        userId: 1,
-                        contacts: {
-                            facebook: '#',
-                            github: '#',
-                            instagram: '#',
-                            mainLink: '#',
-                            twitter: '#',
-                            website: '#',
-                            youtube: '#',
-                            vk: '#'
-                        },
-                        fullName: 'Farid Makhmudov',
-                        lookingForAJob: true,
-                        photos: {large: '', small: ''},
-                        lookingForAJobDescription: '',
-                    }))
+                if (!id || id === 1){
+                    dispatch(FETCH_PROFILE_DATA(preloaded.profileData))
                     return
                 }
 
                 const {data} = await APIinstance.get<ProfileResponse>(`/profile/${id}`)
                 dispatch(FETCH_PROFILE_DATA(data))
-            }
-            catch (e) {
+
+                console.log(data)
+            } catch (e) {
                 console.log(e)
-            }
-            finally {
+            } finally {
 
             }
 

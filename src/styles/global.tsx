@@ -10,7 +10,7 @@ export const Global = createGlobalStyle`
   }
   
   #users {
-    height: 620px;
+    height: 530px;
     overflow: auto;
   }
 

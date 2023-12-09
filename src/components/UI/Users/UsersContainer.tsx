@@ -42,7 +42,7 @@ class Users extends PureComponent<UsersProps, UsersState> {
 
 
     state: Readonly<UsersState> = {
-        currentPage: 1
+        currentPage: 1234
     }
 
     nextPage = (page: number) => {
@@ -73,7 +73,7 @@ class Users extends PureComponent<UsersProps, UsersState> {
     }
 
     componentDidMount() {
-        this.props.fetchUsers(3, this.state.currentPage)
+        this.props.fetchUsers(5, this.state.currentPage)
 
     }
 

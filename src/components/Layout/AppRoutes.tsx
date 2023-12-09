@@ -1,4 +1,4 @@
-import {Routes, Route} from 'react-router-dom'
+import {Route, Routes} from 'react-router-dom'
 import {FC, Suspense} from "react";
 import Text from "../../service-components/Text/Text";
 import {RoutesData} from "../../Routes/Routes";

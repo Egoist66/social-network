@@ -3,8 +3,8 @@ import {logActions} from "../../utils/utils";
 import {Contacts, Photos} from "../api/profileAPI";
 
 export type profilePageProps = {
-    userProfile: {
-        posts: PostMessageItems[]
+    posts: PostMessageItems[]
+    profileData: {
         aboutMe: string
         contacts: Contacts
         lookingForAJob: boolean
@@ -12,36 +12,16 @@ export type profilePageProps = {
         fullName: string
         userId: number
         photos: Photos
-    }
+    } | null
+
 }
 
 
 const initialState: profilePageProps = {
-    userProfile: {
-        posts: [
-            {id: crypto.randomUUID(), message: 'Hello, how are you guys?', likesCount: 3},
-            {id: crypto.randomUUID(), message: 'Learning react is funny', likesCount: 10},
-            {id: crypto.randomUUID(), message: 'Winter is coming sounds familiar', likesCount: 5},
+    posts: [],
+    profileData: null
 
-        ],
-        aboutMe: 'Hi',
-        userId: 1,
-        contacts: {
-            facebook: '#',
-            github: '#',
-            instagram: '#',
-            mainLink: '#',
-            twitter: '#',
-            website: '#',
-            youtube: '#',
-            vk: '#'
-        },
-        fullName: 'Farid Makhmudov',
-        lookingForAJob: true,
-        photos: {large: '', small: ''},
-        lookingForAJobDescription: '',
 
-    }
 }
 
 const profileReducer = (state = initialState, action: Action): profilePageProps => {
@@ -51,26 +31,19 @@ const profileReducer = (state = initialState, action: Action): profilePageProps 
         case ActionNames.FETCH_PROFILE_DATA: {
             return {
                 ...state,
-                userProfile: {
-                    posts: [...state.userProfile.posts],
-                    ...action.payload.profileData
+                posts: [...state.posts],
+                profileData: action.payload.profileData
 
-                }
             }
         }
+
 
         case ActionNames.ADD_POST:
             logActions(action, action.type, action.payload)
 
             return {
                 ...state,
-                userProfile: {
-                    ...state.userProfile,
-                    posts: [
-                        ...state.userProfile.posts,
-                        {id: crypto.randomUUID(), likesCount: 0, message: action.payload.text}
-                    ]
-                }
+                posts: [...state.posts, {id: crypto.randomUUID(), likesCount: 0, message: action.payload.text}]
             }
 
 
