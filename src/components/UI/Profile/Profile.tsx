@@ -4,7 +4,6 @@ import {AppRootState} from "../../../BLL/redux-store";
 import {Dispatch} from "redux";
 import {Action} from "../../../BLL/actions";
 import {ProfileAPI, ProfileResponse} from "../../../BLL/api/profileAPI";
-import {uriId} from "../../../utils/utils";
 import {withRouter} from "../../../HOC/withFnRouter";
 import {ProfileView} from "./ProfileView";
 
