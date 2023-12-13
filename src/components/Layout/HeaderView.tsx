@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import React, {FC, ReactNode, useEffect, useState} from 'react'
+import React, {FC} from 'react'
 import {Logo} from "./Logo";
 import Text from "../../service-components/Text/Text";
 import {View} from "../../service-components/View/View";
 import {HeaderPageProps} from "./HeaderContainer";
-import {NavLink} from "react-router-dom";
 
 const StyledHeader = styled.header`
 
@@ -31,24 +30,7 @@ const StyledHeader = styled.header`
 `
 
 
-export const HeaderView: FC<HeaderPageProps> = ({auth, isFetching}) => {
-
-    const [loginText, setLoginText] = useState<ReactNode>('')
-
-    const showLogin = () => {
-
-        const result = auth?.isAuth ?
-            <Text _color={'#fff'}>Logged In - {auth.data.login}</Text> :
-            <NavLink to={'/login'}>Login</NavLink>
-
-        setLoginText(result)
-    }
-
-    useEffect(() => {
-        showLogin()
-
-
-    }, [auth?.resultCode])
+export const HeaderView: FC<HeaderPageProps> = ({loginText}) => {
 
     return (
         <StyledHeader>

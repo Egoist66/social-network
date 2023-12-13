@@ -31,9 +31,18 @@ export const usersReducer = (state = initialState, action: Action): UsersTypeSta
             return {
                 ...state,
                 userItems: state.userItems.map(u => u.id === action.payload.id ?
-                    {...u, followed: !u.followed} : u
+                    {...u, followed: action.payload.status === 0} : u
                 )
             }
+
+        case ActionNames.UNFOLLOW_USER: {
+            return {
+                ...state,
+                userItems: state.userItems.map(u => u.id === action.payload.id ?
+                    {...u, followed: !(action.payload.status === 0)} : u
+                )
+            }
+        }
 
         case ActionNames.INIT_FETCH_USERS: {
             return {

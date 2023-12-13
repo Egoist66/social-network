@@ -6,19 +6,22 @@ import {usersAPI, UsersResponseItems} from "../../../BLL/api/usersAPI";
 import {PureComponent, ReactNode} from "react";
 import {UsersView} from "./UsersView";
 import {Spinner} from "../../../service-components/Preloader/Preloader";
+import {authResponse} from "../../../BLL/api/authAPI";
 
 interface mapDispatchToPropsType {
     fetchUsers: (pageSize: number, currentPage: number) => Promise<void>
     followUsers: (id: number) => void
+    unfollowUsers: (id: number) => void
 }
 
-const mapStateToProps = ({usersPage}: AppRootState) => ({...usersPage})
+const mapStateToProps = ({usersPage, auth}: AppRootState) => ({...usersPage, auth})
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): mapDispatchToPropsType => ({
     fetchUsers: (usersCount: number, currentPage: number) => usersAPI.fetchUsers(
         dispatch, usersCount, currentPage
     ),
-    followUsers: (id: number) => usersAPI.followUsers(dispatch, id)
+    followUsers: (id: number) => usersAPI.followUsers(dispatch, id),
+    unfollowUsers: (id: number) => usersAPI.unfollowUsers(dispatch, id)
 })
 
 export interface UsersProps {
@@ -29,7 +32,9 @@ export interface UsersProps {
     error: string | null,
     fetchUsers: (usersCount: number, currentPage: number) => Promise<void>,
     isFetching: boolean,
-    followUsers: (id: number) => void
+    followUsers: (id: number) => void,
+    unfollowUsers: (id: number) => void,
+    auth: authResponse
 
 }
 
@@ -42,7 +47,7 @@ class Users extends PureComponent<UsersProps, UsersState> {
 
 
     state: Readonly<UsersState> = {
-        currentPage: 1234
+        currentPage: 1
     }
 
     nextPage = (page: number) => {

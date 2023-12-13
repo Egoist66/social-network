@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {Action, INIT_SET_USER_DATA, SET_USER_DATA} from "../actions";
+import {Action, INIT_SET_USER_DATA, LOGOUT_USER, SET_USER_DATA} from "../actions";
 import {APIinstance} from "./usersAPI";
 
 export type authResponse = {
@@ -14,6 +14,12 @@ export type authResponse = {
     }
 
 
+}
+
+export type LogInOutResponse<T> = {
+    resultCode: number
+    messages: string[]
+    data: T
 }
 
 export const AuthAPI = {
@@ -36,5 +42,36 @@ export const AuthAPI = {
 
             }
         })()
-    }
+    },
+
+    logIn(dispatch: Dispatch<Action>, email: string, password: string, remember: boolean){
+       return (async () => {
+
+           const {data} = await APIinstance.post<LogInOutResponse<{id: number}>>(
+               '/auth/login',
+               {email, password, remember}
+           )
+           if(data.resultCode === 0){
+               await this.checkIsUserAuth(dispatch)
+           }
+           else {
+               console.log(data)
+           }
+
+       })()
+    },
+    logOut(dispatch: Dispatch<Action>){
+       return (async () => {
+
+           const {data} = await APIinstance.delete<LogInOutResponse<{}>>('/auth/login')
+           console.log(data)
+            if(data.resultCode === 0){
+                dispatch(LOGOUT_USER(false))
+
+            }
+            else {
+                console.log(data)
+            }
+       })()
+    },
 }

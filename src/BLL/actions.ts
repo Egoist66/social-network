@@ -9,33 +9,39 @@ export enum ActionNames {
     ADD_MESSAGE = 'ADD_MESSAGE',
     LOAD_USERS = 'LOAD_USERS',
     FOLLOW_USER = 'FOLLOW_USER',
+    UNFOLLOW_USER = 'UNFOLLOW_USER',
     FETCH_USERS = 'FETCH_USERS',
     INIT_FETCH_USERS = 'INIT_FETCH_USERS',
     FETCH_PROFILE_DATA = 'FETCH_PROFILE_DATA',
     INIT_SET_USER_DATA = 'INIT_SET_USER_DATA',
-    SET_USER_DATA = 'SET_USER_DATA'
+    SET_USER_DATA = 'SET_USER_DATA',
+    LOGOUT_USER = 'LOGOUT_USER',
 }
 
 type AddPostAction = ReturnType<typeof ADD_POST>
 type AddMessageAction = ReturnType<typeof ADD_MESSAGE>
 type LoadUsersAction = ReturnType<typeof LOAD_USERS>
 type FollowUsersAction = ReturnType<typeof FOLLOW_USER>
+type UnFollowUsersAction = ReturnType<typeof UNFOLLOW_USER>
 type FetchUsersAction = ReturnType<typeof FETCH_USERS>
 type InitFetchUsersAction = ReturnType<typeof INIT_FETCH_USERS>
 type FetchProfileDataAction = ReturnType<typeof FETCH_PROFILE_DATA>
 type InitSetUserDataAction = ReturnType<typeof INIT_SET_USER_DATA>
 type SetUserDataAction = ReturnType<typeof SET_USER_DATA>
+type LogOutUserAction = ReturnType<typeof LOGOUT_USER>
 
 export type Action =
     AddPostAction
     | AddMessageAction
     | LoadUsersAction
     | FollowUsersAction
+    | UnFollowUsersAction
     | FetchUsersAction
     | InitFetchUsersAction
     | FetchProfileDataAction
     | InitSetUserDataAction
     | SetUserDataAction
+    | LogOutUserAction
 
 
 /* Action creators functions */
@@ -48,8 +54,11 @@ export const ADD_MESSAGE = (message: string) =>
 export const LOAD_USERS = (id: number) => (
     {type: ActionNames.LOAD_USERS, payload: {id}} as const
 )
-export const FOLLOW_USER = (id: number) => (
-    {type: ActionNames.FOLLOW_USER, payload: {id}} as const
+export const FOLLOW_USER = (id: number, status: number) => (
+    {type: ActionNames.FOLLOW_USER, payload: {id, status}} as const
+)
+export const UNFOLLOW_USER = (id: number, status: number) => (
+    {type: ActionNames.UNFOLLOW_USER, payload: {id, status}} as const
 )
 export const FETCH_USERS = (userItems: UsersResponseItems[], totalCount: number, usersCount: number, currentPage: number, error: string | null) => (
     {type: ActionNames.FETCH_USERS, payload: {userItems, totalCount, usersCount, currentPage, error}} as const
@@ -65,5 +74,8 @@ export const SET_USER_DATA = (data: authResponse) => (
 )
 export const INIT_SET_USER_DATA = (isFetching: boolean) => (
     {type: ActionNames.INIT_SET_USER_DATA, payload: {isFetching}} as const
+)
+export const LOGOUT_USER = (isAuth: boolean) => (
+    {type: ActionNames.LOGOUT_USER, payload: {isAuth}} as const
 )
 

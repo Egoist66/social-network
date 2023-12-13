@@ -6,19 +6,22 @@ import Wrapper from "../../../service-components/Wrapper/SectionWrapper";
 import { Avatar } from "../Profile/Avatar";
 import Text from "../../../service-components/Text/Text";
 import {NavLink} from "react-router-dom";
+import {authResponse} from "../../../BLL/api/authAPI";
 
 type UsersViewProps = {
      currentPage: number;
+     auth: authResponse
      getPageCount: (usersCount?: number) => () => number[];
      error: string | null;
      userItems:  UsersResponseItems[] | undefined;
      followUsers: (id: number) => void
+     unfollowUsers: (id: number) => void
      renderSpinner: (isFetching?: boolean) => ReactNode
      isFetching: boolean
      nextPage: (page: number) => () => void
 }
 
-export const UsersView: FC<UsersViewProps> = memo(({currentPage, renderSpinner, isFetching, nextPage, getPageCount, error, userItems, followUsers}) => {
+export const UsersView: FC<UsersViewProps> = memo(({currentPage, unfollowUsers, auth, renderSpinner, isFetching, nextPage, getPageCount, error, userItems, followUsers}) => {
 
      const pages = getPageCount(10)
 
@@ -56,8 +59,9 @@ export const UsersView: FC<UsersViewProps> = memo(({currentPage, renderSpinner, 
                                            <Avatar width={100} />
                                        </NavLink>
                                         <Button
-                                             text={u.followed ? 'Follow' : 'Unfollow'}
-                                             onClickHandler={() => followUsers(u.id)}
+                                             disabled={!auth.isAuth}
+                                             text={u.followed ? 'Unfollow' : 'Follow'}
+                                             onClickHandler={() => u.followed ? unfollowUsers(u.id) : followUsers(u.id)}
                                         />
                                    </Wrapper>
                                    <Wrapper _direction={'column'}>

@@ -1,7 +1,6 @@
-import {Action, FETCH_USERS, FOLLOW_USER, INIT_FETCH_USERS} from "../actions";
+import {Action, FETCH_USERS, FOLLOW_USER, INIT_FETCH_USERS, UNFOLLOW_USER} from "../actions";
 import {Dispatch} from "redux";
 import axios from "axios";
-import {useActions} from "../../hooks/useActions";
 
 
 export type UsersResponseItems = {
@@ -21,6 +20,14 @@ export type UsersResponseType = {
     items: UsersResponseItems[]
 }
 
+export type FollowUnfollowResponse = {
+
+    data: {},
+    fieldsErrors: string[],
+    messages: string[],
+    resultCode: number
+
+}
 
 export const APIinstance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0',
@@ -31,36 +38,6 @@ export const APIinstance = axios.create({
     }
 })
 
-
-export const useUsersAPI = () => {
-
-    const {FETCH_USERS, FOLLOW_USER} = useActions()
-
-
-    return {
-
-        fetchUsers() {
-            return (async () => {
-                const {data} = await APIinstance.get<UsersResponseType>('/users')
-
-                FETCH_USERS(
-                    data.items,
-                    data.totalCount,
-                    5,
-                    1,
-                    data.error
-                )
-
-            })()
-        },
-
-        followUsers(id: number) {
-            return () => {
-                FOLLOW_USER(id)
-            }
-        }
-    }
-}
 
 export const usersAPI = {
 
@@ -92,7 +69,25 @@ export const usersAPI = {
     followUsers(dispatch: Dispatch<Action>, id: number) {
         return (async () => {
             try {
-                dispatch(FOLLOW_USER(id))
+                const {data} = await APIinstance.post<FollowUnfollowResponse>(`/follow/${id}`)
+                if(data.resultCode === 0){
+                    console.log(data.resultCode)
+                    dispatch(FOLLOW_USER(id, data.resultCode))
+                }
+
+            } catch (e) {
+                console.log(e)
+            }
+        })()
+    },
+    unfollowUsers(dispatch: Dispatch<Action>, id: number) {
+        return (async () => {
+            try {
+                const {data} = await APIinstance.delete<FollowUnfollowResponse>(`/follow/${id}`)
+               if(data.resultCode === 0){
+                   console.log(data.resultCode)
+                   dispatch(UNFOLLOW_USER(id, data.resultCode))
+               }
             } catch (e) {
                 console.log(e)
             }

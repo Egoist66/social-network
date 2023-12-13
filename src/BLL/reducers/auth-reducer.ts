@@ -4,7 +4,7 @@ type initialStateType = {
 
     isAuth: boolean
     messages: string[]
-    resultCode: 1
+    resultCode: number
     data: {
         id: number
         email: string
@@ -27,7 +27,7 @@ const initialState: initialStateType = {
     },
     isFetching: true
 }
-export const authReducer = (state = initialState, action: Action) => {
+export const authReducer = (state = initialState, action: Action): initialStateType => {
     switch (action.type) {
 
         case ActionNames.INIT_SET_USER_DATA: {
@@ -49,6 +49,12 @@ export const authReducer = (state = initialState, action: Action) => {
 
 
 
+            }
+        }
+        case ActionNames.LOGOUT_USER: {
+            return  {
+                ...state,
+                isAuth: action.payload.isAuth
             }
         }
 
