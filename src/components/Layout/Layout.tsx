@@ -1,15 +1,15 @@
 import React, {FC} from 'react'
-import {Header} from "./Header";
 import {Sidebar} from "./Sidebar";
 import {Main} from "./Main";
 import {LWrapper} from "../../service-components/LayoutWrapper/LWrapper";
+import Header from "./HeaderContainer";
 
 export const Layout: FC = () => {
 
     return (
         <LWrapper>
 
-            <Header/>
+            <Header />
             <Sidebar/>
             <Main />
 

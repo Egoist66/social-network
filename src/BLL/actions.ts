@@ -2,6 +2,7 @@
 
 import {UsersResponseItems} from "./api/usersAPI";
 import {ProfileResponse} from "./api/profileAPI";
+import {authResponse} from "./api/authAPI";
 
 export enum ActionNames {
     ADD_POST = 'ADD_POST',
@@ -10,7 +11,9 @@ export enum ActionNames {
     FOLLOW_USER = 'FOLLOW_USER',
     FETCH_USERS = 'FETCH_USERS',
     INIT_FETCH_USERS = 'INIT_FETCH_USERS',
-    FETCH_PROFILE_DATA = 'FETCH_PROFILE_DATA'
+    FETCH_PROFILE_DATA = 'FETCH_PROFILE_DATA',
+    INIT_SET_USER_DATA = 'INIT_SET_USER_DATA',
+    SET_USER_DATA = 'SET_USER_DATA'
 }
 
 type AddPostAction = ReturnType<typeof ADD_POST>
@@ -20,6 +23,8 @@ type FollowUsersAction = ReturnType<typeof FOLLOW_USER>
 type FetchUsersAction = ReturnType<typeof FETCH_USERS>
 type InitFetchUsersAction = ReturnType<typeof INIT_FETCH_USERS>
 type FetchProfileDataAction = ReturnType<typeof FETCH_PROFILE_DATA>
+type InitSetUserDataAction = ReturnType<typeof INIT_SET_USER_DATA>
+type SetUserDataAction = ReturnType<typeof SET_USER_DATA>
 
 export type Action =
     AddPostAction
@@ -29,6 +34,8 @@ export type Action =
     | FetchUsersAction
     | InitFetchUsersAction
     | FetchProfileDataAction
+    | InitSetUserDataAction
+    | SetUserDataAction
 
 
 /* Action creators functions */
@@ -52,5 +59,11 @@ export const INIT_FETCH_USERS = (isFetching: boolean) => (
 )
 export const FETCH_PROFILE_DATA = (profileData: ProfileResponse) => (
     {type: ActionNames.FETCH_PROFILE_DATA, payload: {profileData}} as const
+)
+export const SET_USER_DATA = (data: authResponse) => (
+    {type: ActionNames.SET_USER_DATA, payload: {data}} as const
+)
+export const INIT_SET_USER_DATA = (isFetching: boolean) => (
+    {type: ActionNames.INIT_SET_USER_DATA, payload: {isFetching}} as const
 )
 
