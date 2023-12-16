@@ -21,4 +21,4 @@ export const store = createStore(
     composeWithDevTools(),
 )
 
-setGlobalProperty(window, [store], 'store')
+setGlobalProperty(window, [store, true], 'store')

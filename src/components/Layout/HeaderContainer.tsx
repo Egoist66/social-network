@@ -59,7 +59,10 @@ class HeaderContainer extends PureComponent<HeaderPageProps, { loginText: ReactN
                 </>
 
             ) :
-            <NavLink to={'/login'}>Login</NavLink>
+            <>
+                <NavLink to={'/login'}>Login</NavLink>
+
+            </>
 
         this.setState({
             loginText: result

@@ -4,6 +4,14 @@ import {Global} from "./styles/global";
 import {BrowserRouter as Router} from "react-router-dom";
 import {store} from "./BLL/redux-store";
 import {Provider} from "react-redux";
+import {spy} from "mobx";
+
+spy((ev) => {
+    if(ev.type === 'action'){
+        console.log(ev)
+    }
+
+})
 
 
 // @ts-ignore
