@@ -1,4 +1,4 @@
-import {Action, FETCH_USERS, FOLLOW_USER, INIT_FETCH_USERS, UNFOLLOW_USER} from "../actions";
+import {Action, FETCH_USERS, FOLLOW_USER, INIT_FETCH_USERS, INIT_FOLLOW_USER, UNFOLLOW_USER} from "../actions";
 import {Dispatch} from "redux";
 import axios from "axios";
 
@@ -12,6 +12,7 @@ export type UsersResponseItems = {
         large: string
     }
     followed: boolean,
+    followingInProgress: boolean
 }
 
 export type UsersResponseType = {
@@ -69,24 +70,35 @@ export const usersAPI = {
     followUsers(dispatch: Dispatch<Action>, id: number) {
         return (async () => {
             try {
+
+                dispatch(INIT_FOLLOW_USER(true, id))
+
                 const {data} = await APIinstance.post<FollowUnfollowResponse>(`/follow/${id}`)
                 if(data.resultCode === 0){
                     console.log(data.resultCode)
                     dispatch(FOLLOW_USER(id, data.resultCode))
+                    dispatch(INIT_FOLLOW_USER(false, id))
+
                 }
 
             } catch (e) {
                 console.log(e)
+                dispatch(INIT_FOLLOW_USER(false, id))
+
             }
         })()
     },
     unfollowUsers(dispatch: Dispatch<Action>, id: number) {
         return (async () => {
+            dispatch(INIT_FOLLOW_USER(true, id))
+
             try {
                 const {data} = await APIinstance.delete<FollowUnfollowResponse>(`/follow/${id}`)
                if(data.resultCode === 0){
                    console.log(data.resultCode)
                    dispatch(UNFOLLOW_USER(id, data.resultCode))
+                   dispatch(INIT_FOLLOW_USER(false, id))
+
                }
             } catch (e) {
                 console.log(e)

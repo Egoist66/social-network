@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, {FC} from 'react'
+import { FC } from 'react';
 import {Logo} from "./Logo";
 import Text from "../../service-components/Text/Text";
 import {View} from "../../service-components/View/View";
@@ -31,6 +31,7 @@ const StyledHeader = styled.header`
 
 
 export const HeaderView: FC<HeaderPageProps> = ({loginText}) => {
+
 
     return (
         <StyledHeader>

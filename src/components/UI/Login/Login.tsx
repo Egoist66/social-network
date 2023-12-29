@@ -31,9 +31,19 @@ const Login: FC = () => {
         remember: true
     })
 
+   
+
     useEffect(() => {
+        if(!isAuth){
+            AuthAPI.checkIsUserAuth(dispatch)
+            return
+
+        }
+
         if(isAuth){
+            
             navigate('/profile')
+            return
         }
     }, [isAuth])
     const mapFields = (e: ChangeEvent<HTMLInputElement>) => {

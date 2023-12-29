@@ -59,7 +59,7 @@ export const UsersView: FC<UsersViewProps> = memo(({currentPage, unfollowUsers, 
                                            <Avatar width={100} />
                                        </NavLink>
                                         <Button
-                                             disabled={!auth.isAuth}
+                                             disabled={!auth.isAuth || u.followingInProgress}
                                              text={u.followed ? 'Unfollow' : 'Follow'}
                                              onClickHandler={() => u.followed ? unfollowUsers(u.id) : followUsers(u.id)}
                                         />

@@ -1,13 +1,16 @@
-import {Route, Routes} from 'react-router-dom'
-import {FC, Suspense} from "react";
+import {Route, Routes, useNavigate} from 'react-router-dom'
+import {FC, Suspense, useEffect} from "react";
 import Text from "../../service-components/Text/Text";
 import {RoutesData} from "../../Routes/Routes";
 import {Spinner} from "../../service-components/Preloader/Preloader";
+import { useAppSelector } from '../../BLL/redux-store';
 
 
 export const AppRoutes: FC = () => {
 
     const {routes} = RoutesData()
+
+    
 
     return (
         <Suspense fallback={<Spinner />}>

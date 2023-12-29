@@ -1,7 +1,7 @@
 import Wrapper from "../../../service-components/Wrapper/SectionWrapper";
 import {Avatar} from "./Avatar";
 import {AboutUser} from "./AboutUser";
-import {FC} from "react";
+import { FC } from "react";
 import {ProfileBG} from "./ProfileBG";
 import {Posts} from "./PostsContainer";
 import {ProfileProps} from "./Profile";
@@ -10,6 +10,8 @@ import {Spinner} from "../../../service-components/Preloader/Preloader";
 
 
 export const ProfileView: FC<ProfileProps> = ({fullName, contacts, aboutMe, photos}) => {
+
+
     return (
 
         <>

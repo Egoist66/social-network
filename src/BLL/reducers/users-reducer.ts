@@ -61,6 +61,11 @@ export const usersReducer = (state = initialState, action: Action): UsersTypeSta
                 error: action.payload.error
             }
 
+        case ActionNames.INIT_FOLLOW_USER : 
+            return {
+                ...state,
+                userItems: state.userItems.map(item => item.id === action.payload.id ? {...item, followingInProgress: action.payload.isFollowing}: item)
+            }    
 
         default:
             return state
