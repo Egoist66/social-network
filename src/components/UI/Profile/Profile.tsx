@@ -1,9 +1,7 @@
 import {PureComponent} from "react";
 import {connect} from "react-redux";
-import {AppRootState} from "../../../BLL/redux-store";
-import {Dispatch} from "redux";
-import {Action} from "../../../BLL/actions";
-import {ProfileAPI, ProfileResponse} from "../../../BLL/api/profileAPI";
+import {AppRootState, AppThunkDispatch} from "../../../BLL/redux-store";
+import {FetchProfileData, ProfileResponse} from "../../../BLL/api/profileAPI";
 import {withRouter} from "../../../HOC/withFnRouter";
 import {ProfileView} from "./ProfileView";
 
@@ -14,18 +12,18 @@ export type ProfilePostProps = {
 export interface ProfileProps extends ProfileResponse {
     posts: PostMessageItems[],
     router: {location: any, navigate: (to: string, options?: any) => void, params: {id: string}}
-    fetchProfileData: (id: number) => Promise<void>
+    fetchProfileData: (id: number) => void
 
 
 }
 
 interface ProfileDispatchProps {
-    fetchProfileData: (id: number) => Promise<void>
+    fetchProfileData: (id: number) => void
 }
 
 const mapStateToProps = ({profilePage: {profileData}}: AppRootState) => ({...profileData})
-const mapDispatchToProps = (dispatch: Dispatch<Action>): ProfileDispatchProps => ({
-    fetchProfileData: (id: number) => ProfileAPI.fetchProfileData(dispatch, id)
+const mapDispatchToProps = (dispatch: AppThunkDispatch): ProfileDispatchProps => ({
+    fetchProfileData: (id: number) => dispatch(FetchProfileData(id))
 })
 
 class Profile extends PureComponent<ProfileProps, any> {

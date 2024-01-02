@@ -58,6 +58,13 @@ export const authReducer = (state = initialState, action: Action): initialStateT
             }
         }
 
+        case ActionNames.VALIDATE_LOGIN_FIELD: {
+            return  {
+                ...state,
+                messages: [action.payload.message]
+            }
+        }
+
         default: {
             return state
         }

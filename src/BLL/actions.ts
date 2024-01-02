@@ -16,7 +16,8 @@ export enum ActionNames {
     INIT_SET_USER_DATA = 'INIT_SET_USER_DATA',
     SET_USER_DATA = 'SET_USER_DATA',
     LOGOUT_USER = 'LOGOUT_USER',
-    INIT_FOLLOW_USER = 'INIT_FOLLOW_USER'
+    INIT_FOLLOW_USER = 'INIT_FOLLOW_USER',
+    VALIDATE_LOGIN_FIELD = 'VALIDATE_LOGIN_FIELD'
 }
 
 type AddPostAction = ReturnType<typeof ADD_POST>
@@ -31,6 +32,7 @@ type InitSetUserDataAction = ReturnType<typeof INIT_SET_USER_DATA>
 type SetUserDataAction = ReturnType<typeof SET_USER_DATA>
 type LogOutUserAction = ReturnType<typeof LOGOUT_USER>
 type InitFollowUserAction = ReturnType<typeof INIT_FOLLOW_USER>
+type ValidateLoginFieldsAction = ReturnType<typeof VALIDATE_LOGIN_FIELD>
 
 export type Action =
     AddPostAction
@@ -45,6 +47,7 @@ export type Action =
     | SetUserDataAction
     | LogOutUserAction
     | InitFollowUserAction
+    | ValidateLoginFieldsAction
 
 
 /* Action creators functions */
@@ -81,7 +84,9 @@ export const INIT_SET_USER_DATA = (isFetching: boolean) => (
 export const LOGOUT_USER = (isAuth: boolean) => (
     {type: ActionNames.LOGOUT_USER, payload: {isAuth}} as const
 )
-
+export const VALIDATE_LOGIN_FIELD = (message: string) => (
+    {type: ActionNames.VALIDATE_LOGIN_FIELD, payload: {message}} as const
+)
 export const INIT_FOLLOW_USER = (isFollowing: boolean, id: number) => (
     {type: ActionNames.INIT_FOLLOW_USER, payload: {isFollowing, id}} as const
 )

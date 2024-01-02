@@ -1,24 +1,19 @@
 import React, {PureComponent, ReactNode} from "react";
-import {Dispatch} from "redux";
 import {connect} from "react-redux";
 import {HeaderView} from "./HeaderView";
-import {AuthAPI, authResponse} from "../../BLL/api/authAPI";
-import {AppRootState} from "../../BLL/redux-store";
-import {Action} from "../../BLL/actions";
+import {authResponse, LogOut} from "../../BLL/api/authAPI";
+import {AppRootState, AppThunkDispatch} from "../../BLL/redux-store";
 import Text from "../../service-components/Text/Text";
-import {NavLink} from "react-router-dom";
 
 const mapStateToProps = ({auth}: AppRootState) => ({auth})
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-    checkIsUserAuth: () => AuthAPI.checkIsUserAuth(dispatch),
-    logOut: () => AuthAPI.logOut(dispatch)
+const mapDispatchToProps = (dispatch: AppThunkDispatch) => ({
+    logOut: () => dispatch(LogOut())
 })
 
 export interface HeaderPageProps {
     auth?: authResponse,
     isFetching?: boolean,
-    checkIsUserAuth?: () => Promise<void>
-    logOut?: () => Promise<void>
+    logOut?: () => void
     loginText?: ReactNode
 
 }
@@ -26,21 +21,13 @@ export interface HeaderPageProps {
 
 class HeaderContainer extends PureComponent<HeaderPageProps, { loginText: ReactNode }> {
 
-    state = {
+    state: Readonly<{ loginText: ReactNode }> = {
         loginText: ''
     }
 
+
     componentDidMount() {
         this.showLogin();
-
-        (async () => {
-            if (this.props.checkIsUserAuth) {
-                await this.props.checkIsUserAuth()
-
-
-            }
-        })()
-
 
     }
 
@@ -58,11 +45,8 @@ class HeaderContainer extends PureComponent<HeaderPageProps, { loginText: ReactN
 
                 </>
 
-            ) :
-            <>
-                <NavLink to={'/login'}>Login</NavLink>
+            ) : null
 
-            </>
 
         this.setState({
             loginText: result

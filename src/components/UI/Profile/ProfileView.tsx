@@ -17,7 +17,7 @@ export const ProfileView: FC<ProfileProps> = ({fullName, contacts, aboutMe, phot
         <>
             <ProfileBG url={'https://shorturl.at/jnvYZ'}/>
             <Wrapper gap={'30px'}>
-                {!photos?.large ? <Spinner/> : <Avatar width={200} src={photos?.large}/>}
+                <Avatar width={200} src={photos?.large ?? 'https://www.svgrepo.com/show/508699/landscape-placeholder.svg'}/>
                 <AboutUser data={{
                     name: fullName,
                     birth: '12/07/1996',

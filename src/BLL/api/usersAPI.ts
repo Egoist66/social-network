@@ -1,6 +1,6 @@
-import {Action, FETCH_USERS, FOLLOW_USER, INIT_FETCH_USERS, INIT_FOLLOW_USER, UNFOLLOW_USER} from "../actions";
-import {Dispatch} from "redux";
+import {FETCH_USERS, FOLLOW_USER, INIT_FETCH_USERS, INIT_FOLLOW_USER, UNFOLLOW_USER} from "../actions";
 import axios from "axios";
+import {AppThunk} from "../redux-store";
 
 
 export type UsersResponseItems = {
@@ -40,69 +40,64 @@ export const APIinstance = axios.create({
 })
 
 
-export const usersAPI = {
+export const FetchUsers = (usersCount: number = 5, currentPage = 1): AppThunk => {
+    return async (dispatch) => {
+        try {
+            dispatch(INIT_FETCH_USERS(true))
 
-    fetchUsers(dispatch: Dispatch<Action>, usersCount: number = 5, currentPage = 1) {
+            const {data} = await APIinstance.get<UsersResponseType>(`/users?count=${usersCount}&page=${currentPage}`)
 
-        return (async () => {
-            try {
-                dispatch(INIT_FETCH_USERS(true))
+            dispatch(FETCH_USERS(
+                data.items || [],
+                data.totalCount,
+                usersCount,
+                currentPage,
+                data.error
+            ))
+        } catch (e) {
+            console.log(e)
+        } finally {
+            dispatch(INIT_FETCH_USERS(false))
 
-                const {data} = await APIinstance.get<UsersResponseType>(`/users?count=${usersCount}&page=${currentPage}`)
+        }
+    }
+}
+export const FollowUsers = (id: number): AppThunk => {
+    return async (dispatch) => {
+        try {
 
-                dispatch(FETCH_USERS(
-                    data.items || [],
-                    data.totalCount,
-                    usersCount,
-                    currentPage,
-                    data.error
-                ))
-            } catch (e) {
-                console.log(e)
-            } finally {
-                dispatch(INIT_FETCH_USERS(false))
+            dispatch(INIT_FOLLOW_USER(true, id))
 
-            }
-
-        })()
-    },
-
-    followUsers(dispatch: Dispatch<Action>, id: number) {
-        return (async () => {
-            try {
-
-                dispatch(INIT_FOLLOW_USER(true, id))
-
-                const {data} = await APIinstance.post<FollowUnfollowResponse>(`/follow/${id}`)
-                if(data.resultCode === 0){
-                    console.log(data.resultCode)
-                    dispatch(FOLLOW_USER(id, data.resultCode))
-                    dispatch(INIT_FOLLOW_USER(false, id))
-
-                }
-
-            } catch (e) {
-                console.log(e)
+            const {data} = await APIinstance.post<FollowUnfollowResponse>(`/follow/${id}`)
+            if (data.resultCode === 0) {
+                console.log(data.resultCode)
+                dispatch(FOLLOW_USER(id, data.resultCode))
                 dispatch(INIT_FOLLOW_USER(false, id))
 
             }
-        })()
-    },
-    unfollowUsers(dispatch: Dispatch<Action>, id: number) {
-        return (async () => {
-            dispatch(INIT_FOLLOW_USER(true, id))
 
-            try {
-                const {data} = await APIinstance.delete<FollowUnfollowResponse>(`/follow/${id}`)
-               if(data.resultCode === 0){
-                   console.log(data.resultCode)
-                   dispatch(UNFOLLOW_USER(id, data.resultCode))
-                   dispatch(INIT_FOLLOW_USER(false, id))
+        } catch (e) {
+            console.log(e)
+            dispatch(INIT_FOLLOW_USER(false, id))
 
-               }
-            } catch (e) {
-                console.log(e)
-            }
-        })()
+        }
     }
 }
+
+export const UnfollowUsers = (id: number): AppThunk => {
+    return async (dispatch) => {
+
+        try {
+            const {data} = await APIinstance.delete<FollowUnfollowResponse>(`/follow/${id}`)
+            if (data.resultCode === 0) {
+                console.log(data.resultCode)
+                dispatch(UNFOLLOW_USER(id, data.resultCode))
+                dispatch(INIT_FOLLOW_USER(false, id))
+
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
+

@@ -1,27 +1,23 @@
-import {AppRootState} from "../../../BLL/redux-store";
+import {AppRootState, AppThunkDispatch} from "../../../BLL/redux-store";
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
-import {Action} from "../../../BLL/actions";
-import {usersAPI, UsersResponseItems} from "../../../BLL/api/usersAPI";
+import {FetchUsers, FollowUsers, UnfollowUsers, UsersResponseItems} from "../../../BLL/api/usersAPI";
 import {PureComponent, ReactNode} from "react";
 import {UsersView} from "./UsersView";
 import {Spinner} from "../../../service-components/Preloader/Preloader";
 import {authResponse} from "../../../BLL/api/authAPI";
 
 interface mapDispatchToPropsType {
-    fetchUsers: (pageSize: number, currentPage: number) => Promise<void>
+    fetchUsers: (usersCount: number, currentPage: number) => void
     followUsers: (id: number) => void
     unfollowUsers: (id: number) => void
 }
 
 const mapStateToProps = ({usersPage, auth}: AppRootState) => ({...usersPage, auth})
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>): mapDispatchToPropsType => ({
-    fetchUsers: (usersCount: number, currentPage: number) => usersAPI.fetchUsers(
-        dispatch, usersCount, currentPage
-    ),
-    followUsers: (id: number) => usersAPI.followUsers(dispatch, id),
-    unfollowUsers: (id: number) => usersAPI.unfollowUsers(dispatch, id)
+const mapDispatchToProps = (dispatch: AppThunkDispatch): mapDispatchToPropsType => ({
+    fetchUsers: (usersCount: number, currentPage: number) => dispatch(FetchUsers(usersCount, currentPage)),
+    followUsers: (id: number) => dispatch(FollowUsers(id)),
+    unfollowUsers: (id: number) => dispatch(UnfollowUsers(id))
 })
 
 export interface UsersProps {
@@ -30,7 +26,7 @@ export interface UsersProps {
     usersCount: number,
     currentPage: number,
     error: string | null,
-    fetchUsers: (usersCount: number, currentPage: number) => Promise<void>,
+    fetchUsers: (usersCount: number, currentPage: number) => void,
     isFetching: boolean,
     followUsers: (id: number) => void,
     unfollowUsers: (id: number) => void,
@@ -78,7 +74,7 @@ class Users extends PureComponent<UsersProps, UsersState> {
     }
 
     componentDidMount() {
-        this.props.fetchUsers(5, this.state.currentPage)
+        this.props.fetchUsers(50, this.state.currentPage)
 
     }
 
@@ -105,6 +101,7 @@ class Users extends PureComponent<UsersProps, UsersState> {
 
     }
 }
+
 
 
 const _Users = connect(mapStateToProps, mapDispatchToProps)(Users)

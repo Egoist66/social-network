@@ -56,7 +56,7 @@ export const UsersView: FC<UsersViewProps> = memo(({currentPage, unfollowUsers, 
                               <Wrapper _margin={'0px 0px 30px 0px'} gap={'30px'} key={u.id}>
                                    <Wrapper gap={'10px'} _direction={'column'}>
                                        <NavLink to={`/profile/${u.id}`}>
-                                           <Avatar width={100} />
+                                           <Avatar width={100} src={u.photos.large ?? 'https://www.svgrepo.com/show/508699/landscape-placeholder.svg'} />
                                        </NavLink>
                                         <Button
                                              disabled={!auth.isAuth || u.followingInProgress}
@@ -69,11 +69,6 @@ export const UsersView: FC<UsersViewProps> = memo(({currentPage, unfollowUsers, 
                                         <Text _margin={'10px 0px 0px 0px'} type={'p'}>{u.status}</Text>
 
                                    </Wrapper>
-                                   <Text type={'p'}>
-                                        <Text type={'span'}>{''}</Text>
-                                        <br />
-                                        <Text type={'span'}>{''}</Text>
-                                   </Text>
 
                               </Wrapper>
                          ))}
